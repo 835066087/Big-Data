@@ -8,7 +8,7 @@
 
 ## HDFS
 
-​		First of all，We need to learn some overviews of Hadoop. Because of this, I add some Hadoop knowledge into the file ”HDFS理论文件“, for example:
+​		First of all，We need to learn some overviews of Hadoop. Because of this, I add some Hadoop knowledge into the file "HDFS理论文件", for example:
 
 
 
