@@ -12,7 +12,7 @@
 
 
 
-![image-20190527210635424](/Users/liuyuanjie/Library/Application Support/typora-user-images/image-20190527210635424.png)
+![HDFS](README.assets/HDFS.png)
 
 
 
@@ -30,5 +30,5 @@
 
 
 
-![image-20190527211654365](/Users/liuyuanjie/Library/Application Support/typora-user-images/image-20190527211654365.png)
+![MR](README.assets/MR.png)
 
