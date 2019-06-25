@@ -1,7 +1,5 @@
 # Read me		
 
-
-
 这是一份有关于大数据生态圈学习过程中各类知识点整理的思维导图，目前更新到 **Oozie** 阶段。
 
 
@@ -20,9 +18,29 @@
 
 
 
+最后说一句我想说的话：
+
+> 理解原理或许很简单，但如何在理解原理以后根据它的原理去进行使用创新，是一件非常困难的事，经过了长久的学习以后并非旅程的终点，而是旅程的起点。
+
+
+
 ## 索引
 
-[TOC]
+<!-- TOC -->
+
+- [大数据软件装配](#大数据软件装配)
+- [Hadoop](#Hadoop)
+    - [HDFS](#HDFS)
+    - [MapReduce](#MapReduce)
+- [Zookeeper](#Zookeeper)
+- [Hive](#Hive)
+- [Flume](#Flume)
+- [Kafka](#Kafka)
+- [HBase](#HBase)
+- [Sqoop](#Sqoop)
+- [Oozie](#Oozie)
+
+<!-- /TOC -->
 
 ## 大数据软件装配
 
