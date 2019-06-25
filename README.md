@@ -20,6 +20,10 @@
 
 
 
+## 索引
+
+[TOC]
+
 ## 大数据软件装配
 
 目前更新到 **Oozie** 阶段
@@ -28,23 +32,23 @@
 
 其中我的配置环境是：
 
-> CentOs 6.8
->
-> Hadoop Apache 2.7.2
->
-> Zookeeper 3.4.10
->
-> Hive 1.2.1
->
-> Flume 1.7.0
->
-> Kafka 2.11-0.11.0.2
->
-> HBase 1.3.1
->
-> Sqoop 1.4.6
->
-> Oozie 4.0.0
+`CentOs 6.8`
+
+`Hadoop Apache 2.7.2`
+
+`Zookeeper 3.4.10`
+
+`Hive 1.2.1`
+
+`Flume 1.7.0`
+
+`Kafka 2.11-0.11.0.2`
+
+`HBase 1.3.1`
+
+`Sqoop 1.4.6`
+
+`Oozie 4.0.0`
 
 ![setup](README.assets/setup.png)
 
