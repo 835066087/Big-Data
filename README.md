@@ -29,16 +29,26 @@
 <!-- TOC -->
 
 - [大数据软件装配](#大数据软件装配)
+
 - [Hadoop](#Hadoop)
     - [HDFS](#HDFS)
     - [MapReduce](#MapReduce)
+    
 - [Zookeeper](#Zookeeper)
+
 - [Hive](#Hive)
+
 - [Flume](#Flume)
+
 - [Kafka](#Kafka)
+
 - [HBase](#HBase)
+
 - [Sqoop](#Sqoop)
+
 - [Oozie](#Oozie)
+
+    
 
 <!-- /TOC -->
 
