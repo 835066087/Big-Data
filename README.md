@@ -60,8 +60,8 @@
   
 - [5.数据处理层](#数据处理层)
 	- [数据存储](#数据存储)
-    - [HDFS](#HDFS)
-    - [Yarn](#Yarn)
+		- [HDFS](#HDFS)
+		- [Yarn](#Yarn)
   - [数据计算](#数据计算) 
   	- [MapReduce](#MapReduce)
   	- [Spark](#Spark)
@@ -255,7 +255,9 @@
 
 `Hive` 的情况恰恰与 `Zookeeper` 相反，`Hive` 作为一个基于 `Hadoop` 的数仓工具，其原理运作并不难，即底层基于 `MapRuduce` 的类 `SQL` 查询工具，因此 `Hive` 更注重的是代码文件，其中 `4 ~ 9` 章我以 `sql` 整理出来。
 
-![Hive](README.assets/Hive.png)
+`Hive理论文档`在2019年7月14日又进行了一次更新，这次更新主要是增加了其与数据库的关系、保存元数据的方式，以及针对压缩和调优，进行了一次总结。
+
+![Hive](README.assets/Hive-3192099.png)
 
 ### Impala
 
