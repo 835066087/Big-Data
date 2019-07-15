@@ -2,7 +2,7 @@
 
 # Read me		
 
-这是一份有关于大数据生态圈学习过程中各类知识点整理的思维导图集，最近一次更新为 **Docker**。 
+这是一份有关于大数据生态圈学习过程中各类知识点整理的思维导图集，最近一次更新为 **190714**。 
 
 在 **2019年6月28日** 本库进行了一次大更新，主要从业务逻辑层面重组了思维导图存放的架构。
 
@@ -10,8 +10,8 @@
 
 1. `00_装配文件`：在此模块中，我对大数据相关软件在 `Linux` 和 `Mac` 环境下的安装进行了详细的说明，以确保大数据软件能够尽可能成功的运行在你的电脑上。
 2. `0.5_Shell`：学习大数据究竟需不需要 `Shell` 脚本基础，这取决于你自身，若没有 `Shell` 脚本基础，也不妨碍你进行大数据的学习，若是拥有 `Shell` 脚本基础，那么你在处理一些进程的时候，将会事半功倍。
-3. `01_数据源`：这部分的思路是 `Docker （数据库安装环境）`→ `Database （数据库）`→` DataX （数据转换离线同步）`，是一个从无到有的过程， `Database` 部分目前**（2019年6月28日）**拥有` Oracle`、`MySQL`、`HBase`、`Redis`、`ClickHouse`五个部分。
-4. `02_接入层`：主要是`Flume`和`Sqoop`。
+3. `01_数据源`：这部分的思路是 `Docker （数据库安装环境）`→ `Database （数据库）`→` DataX （数据转换离线同步）`，是一个从无到有的过程， `Database` 部分目前（2019年6月28日）拥有` Oracle`、`MySQL`、`HBase`、`Redis`、`ClickHouse`五个部分。
+4. `02_接入层`：主要是`Flume`和`Sqoop`以及`Kafka`。
 5. `03_数据处理层`：这一层面的内容十分丰富，因而我又做了一次划分，主要分为五个部分:`数据存储：如HDFS`，`数据计算：MapReduce及Spark`，`数据查询：Hive及Impala`，`任务调度：Oozie，Azkaban，Kettle等`，`监控报警：Zookeeper`。
 
 
@@ -51,14 +51,15 @@
     - [Redis](#Redis)
     - [HBase](#HBase)
     - [ClickHouse](#ClickHouse)
-	- [DataX](#DataX)
+  - [DataX](#DataX)
 	
 - [4.接入层](#接入层)
-- [Flume](#Flume)
-  - [Sqoop](#Sqoop)
+	- [Flume](#Flume)
+	- [Sqoop](#Sqoop)
+	- [Kafka](#Kafka)
   
 - [5.数据处理层](#数据处理层)
-- [数据存储](#数据存储)
+	- [数据存储](#数据存储)
     - [HDFS](#HDFS)
     - [Yarn](#Yarn)
   - [数据计算](#数据计算) 
@@ -73,7 +74,6 @@
   	- [Kettle](#Kettle)
   - [监控报警](#监控报警)
   	- [Zookeeper](#Zookeeper)
-		- [Kafka](#Kafka)
     
 
 <!-- /TOC -->
@@ -116,7 +116,9 @@
 
 # Shell
 
-暂未更新，敬请期待
+本框架内部所做的`Shell`思维导图仅仅是一个简单的入门，学习结束以后可以看懂基本的脚本流程，和撰写一些简单的脚本，更深入的推荐去看`Linux命令行与shell脚本编程大全`。
+
+![Shell](README.assets/Shell.png)
 
 
 
@@ -186,6 +188,12 @@
 
 ![image-20190628211439618](README.assets/image-20190628211439618.png)
 
+## Kafka
+
+`Kafka`的用途多种多样，并不只局限于数据接入一种，它可以进行日志收集，消息系统，用户活动跟踪，流式处理等，要理解`Kafka`，首先要了解它的架构运行，其次了解它的文件存储机制。
+
+![Kafka](README.assets/Kafka.png)
+
 # 数据处理层
 
 ## 数据存储
@@ -196,21 +204,21 @@
 
 `HDFS` 是 `Hadoop` 的基石，因此我把 `Hadoop` 的概述与它进行了合并，作为一个小简介，从而引出 `HDFS` ,`HDFS`的主要部分在于理解`NN`、`DN`、`Client`和`2NN`的运行机制。
 
-![HDFS](README.assets/HDFS-1727975.png)
+在2019年7月13日`HDFS理论文件`进行了一次更新，将`HDFS`架构，读写流程，以及`NN与2NN`的关系纳入了`HDFS运作原理`模块中，同时新增了`Hadoop压缩格式`，及`Hadoop优化`两个模块，完善了`HDFS`的内容。
+
+![HDFS](README.assets/HDFS-3188940.png)
 
 #### 代码文件
 
-已更新，主要是`hadoop`在`shell`命令行中的一些常用命令整理归纳
+已更新，主要是`Hadoop`在`shell`命令行中的一些常用命令整理归纳
 
 
-
-#### 备注
-
-一些有关于`HDFS`的内容以及现有的知识结构图我不是很满意，在未来的版本会有更新，在近期内会进行更改一次。
 
 ### Yarn
 
-暂未更新
+`Yarn`是`Hadoop`中的资源调度平台，在这一内容中的重点主要有`Yarn工作机制`（以`MapReduce`程序为例，详细的介绍了`Yarn`的资源调度流程），`Yarn资源调度器`(介绍了`Yarn`的三种资源调度器)，以及`Yarn的资源推测执行机制`。
+
+![Yarn](README.assets/Yarn.png)
 
 ## 数据计算
 
@@ -222,8 +230,6 @@
 `MapReduce` 是 `Hadoop` 中的分布式计算系统，在之后的内容中，有许多框架都是基于 `MapReduce` 所进行的，比如 `Oozie` ，比如 `Hive` ，因而理解 `MapReduce` 的原理是非常必要的。
 
 ![MR](README.assets/MR-1728080.png)
-
-
 
 
 
@@ -271,6 +277,8 @@
 
 ### Kettle
 
+`Kettle`是一个可视化的`ETL工具`，简单易上手，使用很轻松。
+
 ![Kettle](README.assets/Kettle.png)
 
 
@@ -279,12 +287,8 @@
 
 ### Zookeeper
 
-`Zookeeper` 的主要目的是为了监控集群中的修改操作，它的架设与操作都非常简单，因此 `Zookeeper` 只有理论文件，在理论中，尤其要注意理解的是它的监听器原理和选举机制（类 `Paxos` 算法）。
+`Zookeeper` 的主要目的是为了监控集群中的修改操作，它的架设与操作都非常简单，因此 `Zookeeper` 只有理论文件，在理论中，尤其要注意理解的是它的监听器原理和选举机制（类 `Paxos` 算法），此外，`Zookeeper`的写数据流程也值得注意。
 
-
-
-### Kafka
-
-正在整理中，待更新
+![Zookeeper](README.assets/Zookeeper-3191678.png)
 
 
