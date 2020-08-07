@@ -85,21 +85,64 @@
 
 如：导入数据到hive中
 
-
-
-
+```shell
+$ bin/sqoop import \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff \
+--hive-import
+```
 
 如：增量导入数据到hive中，mode=append
 
+```shell
+append导入：
+$ bin/sqoop import \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff \
+--num-mappers 1 \
+--fields-terminated-by "\t" \
+--target-dir /user/hive/warehouse/staff_hive \
+--check-column id \
+--incremental append \
+--last-value 3
 
+```
 
 提示：append不能与--hive-等参数同时使用（Append mode for hive imports is not yet supported. Please remove the parameter --append-mode）
 
-
-
 如：增量导入数据到hdfs中，mode=lastmodified
 
+```shell
+先在mysql中建表并插入几条数据：
+mysql> create table company.staff_timestamp(id int(4), name varchar(255), sex varchar(255), last_modified timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+mysql> insert into company.staff_timestamp (id, name, sex) values(1, 'AAA', 'female');
+mysql> insert into company.staff_timestamp (id, name, sex) values(2, 'BBB', 'female');
+先导入一部分数据：
+$ bin/sqoop import \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff_timestamp \
+--delete-target-dir \
+--m 1
+再增量导入一部分数据：
+mysql> insert into company.staff_timestamp (id, name, sex) values(3, 'CCC', 'female');
+$ bin/sqoop import \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff_timestamp \
+--check-column last_modified \
+--incremental lastmodified \
+--last-value "2017-09-28 22:20:38" \
+--m 1 \
+--append
 
+```
 
 尖叫提示：使用lastmodified方式导入数据要指定增量数据是要--append（追加）还是要--merge-key（合并）
 
@@ -141,9 +184,16 @@
 
 **如：**
 
-
-
-
+```shell
+$ bin/sqoop export \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff \
+--export-dir /user/company \
+--input-fields-terminated-by "\t" \
+--num-mappers 1
+```
 
 **2)** **参数：**
 
@@ -168,7 +218,16 @@
 
 如：
 
-
+```shell
+$ bin/sqoop codegen \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff \
+--bindir /home/admin/Desktop/staff \
+--class-name Staff \
+--fields-terminated-by "\t"
+```
 
 
 
@@ -193,7 +252,14 @@
 
 如：
 
-
+```shell
+$ bin/sqoop create-hive-table \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff \
+--hive-table hive_staff
+```
 
 **参数：**
 
@@ -213,7 +279,13 @@
 
 如：
 
-
+```shell
+$ bin/sqoop eval \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--query "SELECT * FROM staff"
+```
 
 **参数：**
 
@@ -231,9 +303,13 @@
 
 如：
 
-
-
-
+```shell
+$ bin/sqoop import-all-tables \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--warehouse-dir /all_tables
+```
 
 **参数：**
 
@@ -260,7 +336,17 @@
 
 如：
 
-
+```shell
+$ bin/sqoop job \
+ --create myjob -- import-all-tables \
+ --connect jdbc:mysql://hadoop102:3306/company \
+ --username root \
+ --password 000000
+$ bin/sqoop job \
+--list
+$ bin/sqoop job \
+--exec myjob
+```
 
 尖叫提示：注意import-all-tables和它左边的--之间有一个空格
 
@@ -281,7 +367,13 @@
 
 尖叫提示：在执行一个job时，如果需要手动输入数据库密码，可以做如下优化
 
-
+```xml
+<property>
+	<name>sqoop.metastore.client.record.password</name>
+	<value>true</value>
+	<description>If true, allow saved passwords in the metastore.</description>
+</property>
+```
 
 
 
@@ -291,9 +383,12 @@
 
 如：
 
-
-
-
+```shell
+$ bin/sqoop list-databases \
+--connect jdbc:mysql://hadoop102:3306/ \
+--username root \
+--password 000000
+```
 
 **参数：**与公用参数一样
 
@@ -303,7 +398,12 @@
 
 如：
 
-
+```shell
+$ bin/sqoop list-tables \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000
+```
 
 **参数：**与公用参数一样
 
@@ -313,7 +413,18 @@
 
 数据环境：
 
-
+```txt
+new_staff
+1       AAA     male
+2       BBB     male
+3       CCC     male
+4       DDD     male
+old_staff
+1       AAA     female
+2       CCC     female
+3       BBB     female
+6       DDD     female
+```
 
 尖叫提示：上边数据的列之间的分隔符应该为\t，行与行之间的分割符为\n，如果直接复制，请检查之。
 
@@ -321,9 +432,35 @@
 
 如：
 
+```shell
+创建JavaBean：
+$ bin/sqoop codegen \
+--connect jdbc:mysql://hadoop102:3306/company \
+--username root \
+--password 000000 \
+--table staff \
+--bindir /home/admin/Desktop/staff \
+--class-name Staff \
+--fields-terminated-by "\t"
 
+开始合并：
+$ bin/sqoop merge \
+--new-data /test/new/ \
+--onto /test/old/ \
+--target-dir /test/merged \
+--jar-file /home/admin/Desktop/staff/Staff.jar \
+--class-name Staff \
+--merge-key id
+```
 
-
+```
+结果：
+1	AAA	MALE
+2	BBB	MALE
+3	CCC	MALE
+4	DDD	MALE
+6	DDD	FEMALE
+```
 
 参数：
 
@@ -346,9 +483,9 @@
 
 如：启动sqoop的metastore服务
 
-
-
-
+```shell
+$ bin/sqoop metastore
+```
 
 **参数：**
 
